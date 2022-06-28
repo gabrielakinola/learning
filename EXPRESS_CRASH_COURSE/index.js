@@ -1,26 +1,32 @@
 const express = require("express");
 const path = require("path");
-const members = require("./Members");
+const exphbs = require("express-handlebars");
+const membersapi = require("./routes/api/membersapi");
 
 const logger = require("./middleware/logger");
 const app = express();
+
+//Handlebars middleware
+//app.engine("handlebars", exphbs({ dafaultLayout: "main" }));
+//app.set("view engine", "handlebars");
 
 pathdir = path.join("C:/Projects/Ticketmaster");
 
 //init logger
 //app.use(logger);
 
-//Get all members
-app.get("/api/members", (req, res) => {
-  res.json(members);
-});
+// Body Parser Middleware
+app.use(express.json());
 
-// Get single member
-app.get("/api/members/:id", (req, res) => {
-  res.json(members.filter((member) => member.id === req.params.id));
-});
+app.use(express.urlencoded({ extended: false }));
+
+//Homepage route
+//app.get("/", (req, res) => res.render("index"));
 //Set Static folder
 app.use(express.static(pathdir));
+
+//Members api routes
+app.use("/api/members", membersapi);
 
 const port = process.env.PORT || 3000;
 
