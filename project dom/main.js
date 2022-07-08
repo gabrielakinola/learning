@@ -8,4 +8,3 @@ function onclick(e) {
     window.location = "./landing.html";
   }
 }
-console.log(window.);

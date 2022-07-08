@@ -22,7 +22,7 @@ app.post("/todo", (req, res) => {
 });
 
 app.get("/todo", (req, res) => {
-  res.jso n(db);
+  res.json(db);
 });
 
 app.listen(8000, () => {
